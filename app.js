@@ -1,4 +1,6 @@
 import express from "express"
+import { seq } from "./db.js"
+import { router } from "./routers/index.js"
 
 const app = express()
 
@@ -22,6 +24,8 @@ let goods = [
         "price": 9999.99
     }
 ]
+
+app.use('/api', router)
 
 app.get("/goods", (req,res)=>{
     return res.json(goods)
@@ -87,6 +91,12 @@ app.delete("/goods/:id", (req, res)=>{
 app.get("/404", (req, res)=>{
     res.status(404).json("плак плак(")
 })
+
+seq.authenticate()
+    .then(()=>console.log('БДшка успешно подключена'))
+    .catch((error)=>console.log('Ошибка подключения к БД: ', error))
+seq.sync({alter: true,})
+    .then((result)=>console.log('БДшка успешно синхронизирована'))
 
 app.listen(PORT, ()=>{
     console.log("Сервер работает ура! Порт: ", PORT)

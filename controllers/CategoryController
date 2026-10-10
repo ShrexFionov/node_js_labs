@@ -1,0 +1,54 @@
+import {Category} from '../models.js'
+
+class CategoryController{
+    async create(req,res){
+        console.log(req.body)
+        const category = await Category.create(req.body) 
+
+        return res.status(201).json(category)
+    }
+    async get_all(req,res){
+        console.log(req.params)
+        const category = await Category.findAll()
+        if (category.length>0){
+            return res.status(200).json(category)
+        }
+        const message = "Категории не найдены"
+        return res.status(404).json(message)
+    }
+    async get(req,res){
+        console.log(req.params)
+        const category_id = req.params.id
+        const category = await Category.findByPk(category_id)
+        if (category){
+            return res.status(200).json(category)
+        }
+        const message = "Категория с id <<"+category_id+">> не найдена"
+        return res.status(404).json(message)
+    }
+    async update(req,res){
+        console.log(req.params)
+        const category_id = req.params.id
+        const category = await Category.findByPk(category_id)
+        if (category){
+            await category.update(req.body)
+            return res.status(200).json(category)
+        }
+        const message = "Категория с id <<"+category_id+">> не найдена"
+        return res.status(404).json(message)
+    }
+    async delete(req,res){
+        console.log(req.params)
+        const category_id = req.params.id
+        const category = await Category.findByPk(category_id)
+        if (category){
+            await category.destroy(category_id)
+            const message = "Категория с id <<"+category_id+">> успешно удалёна"
+            return res.status(200).json(message)
+        }
+        const message = "Категория с id <<"+category_id+">> не найдена"
+        return res.status(404).json(message)
+    }
+}
+
+export default new CategoryController()
