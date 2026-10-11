@@ -130,14 +130,14 @@ const Category = seq.define('category', {
     },
 }) 
 
-User.hasMany(Review, {onDelete: "SET NULL",onUpdate:"CASCADE",foreignKey:{allowNull:false}} )
+User.hasMany(Review, {onDelete: "SET NULL",onUpdate:"CASCADE"} )
 User.hasMany(Order, {onDelete: "SET NULL",onUpdate:"CASCADE"} )
 
 Order.hasMany(OrderItems, {onDelete: "CASCADE", onUpdate: "CASCADE",foreignKey:{allowNull:false}})
 
-Category.hasMany(Product, {onDelete: "SET NULL", onUpdate: "CASCADE",foreignKey:{allowNull:false}})
+Category.hasMany(Product, {onDelete: "SET NULL", onUpdate: "CASCADE"})
 
-Product.hasMany(Review, {onDelete: "SET NULL", onUpdate: "CASCADE",foreignKey:{allowNull:false}})
-Product.hasMany(OrderItems, {onDelete: "SET NULL", onUpdate: "CASCADE",foreignKey:{allowNull:false}})
+Product.hasMany(Review, {onDelete: "SET NULL", onUpdate: "CASCADE"})
+Product.hasMany(OrderItems, {onDelete: "SET NULL", onUpdate: "CASCADE"})
 
 export {User, Review, Order, OrderItems, Product, Category}
