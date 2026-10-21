@@ -1,10 +1,13 @@
 import express from "express"
 import { seq } from "./db.js"
 import { router } from "./routers/index.js"
+import fileUpload from "express-fileupload"
 
 const app = express()
 
 app.use(express.json())
+app.use(fileUpload({}))
+app.use('/uploads', express.static('uploads'))
 
 const PORT = 3000
 
@@ -85,8 +88,6 @@ app.delete("/goods/:id", (req, res)=>{
         return res.status(404).json('Товар по заданному id не найден')
     }
 })
-
-
 
 app.get("/404", (req, res)=>{
     res.status(404).json("плак плак(")

@@ -27,6 +27,10 @@ const User = seq.define('user', {
         type: DataTypes.STRING,
         allowNull: true
     },
+    role:{
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     activationLink: {
         type: DataTypes.STRING,
     },

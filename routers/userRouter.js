@@ -5,13 +5,18 @@ import ReviewsController from "../controllers/ReviewsController.js";
 import OrderController from "../controllers/OrderController.js";
 import OrderItemsController from "../controllers/OrderItemsController.js";
 import ProductController from "../controllers/ProductController.js";
+import { authMiddleware } from "../authMiddleware.js";
+
 
 const userRouter = new Router()
+userRouter.post('/registration', UserController.registration)
+userRouter.get('/activate/:link', UserController.activate)
+userRouter.post('/login', UserController.login)
 userRouter.get('/users', UserController.get_all)
-userRouter.get('/users/:id', UserController.get)
+userRouter.get('/users/:id',authMiddleware, UserController.get)
 userRouter.post('/users', UserController.create)
-userRouter.put('/users/:id', UserController.update)
-userRouter.delete('/users/:id', UserController.delete)
+userRouter.put('/users/:id',authMiddleware, UserController.update)
+userRouter.delete('/users/:id',authMiddleware, UserController.delete)
 
 const categoryRouter = new Router()
 categoryRouter.get('/category', CategoryController.get_all)
